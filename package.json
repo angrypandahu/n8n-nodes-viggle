@@ -51,6 +51,8 @@
     "n8n-workflow": "*"
   },
   "dependencies": {
+    "@types/node-fetch": "2",
+    "node-fetch": "2",
     "sqlite3": "^5.1.7"
   }
 }

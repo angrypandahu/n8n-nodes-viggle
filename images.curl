@@ -16,4 +16,73 @@ curl 'https://viggle.ai/api/asset/image?page=1&pageSize=48' \
   -H 'u: c910c40d-c3ea-4e51-8f19-0c85d31a066c' \
   -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36'
 
-  
+
+  {
+    "code": 0,
+    "message": "ok",
+    "ts": "",
+    "reason": "",
+    "data": [
+        {
+            "id": "1fb8c961-d794-438e-b690-620e860c6a95",
+            "name": "c40ad621e63c68d301f32cb862c28052",
+            "url": "https://cdn.viggle.ai/image-asset/1fb8c961-d794-438e-b690-620e860c6a95.jpg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=Vbh7rTtOrxeKBXkx8aGdxQ9b26Q=",
+            "largeURL": "https://cdn.viggle.ai/image-asset/1fb8c961-d794-438e-b690-620e860c6a95.jpg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=Vbh7rTtOrxeKBXkx8aGdxQ9b26Q=",
+            "middleURL": "https://cdn.viggle.ai/image-asset/1fb8c961-d794-438e-b690-620e860c6a95.jpg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=Vbh7rTtOrxeKBXkx8aGdxQ9b26Q=",
+            "smallURL": "https://cdn.viggle.ai/preview/2e520cea-8342-4946-aa49-fcbbcac9ddae_s.jpg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=4TGc-g09iIgi_1p7KrZ5jopb8lc=",
+            "miniURL": "https://cdn.viggle.ai/preview/2e520cea-8342-4946-aa49-fcbbcac9ddae_m.jpg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=ClyInp9cxl7Iy7lp73UOT5-Ga9E=",
+            "width": 640,
+            "height": 640,
+            "isCollected": false
+        },
+        {
+            "id": "93479d7a-77ac-417e-a2ae-3868b6502f2a",
+            "name": "熊猫读书",
+            "url": "https://cdn.viggle.ai/image-asset/93479d7a-77ac-417e-a2ae-3868b6502f2a.jpeg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=s0sZwnJCT-Un7IqhKN9Q4xMYm-Q=",
+            "largeURL": "https://cdn.viggle.ai/image-asset/93479d7a-77ac-417e-a2ae-3868b6502f2a.jpeg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=s0sZwnJCT-Un7IqhKN9Q4xMYm-Q=",
+            "middleURL": "https://cdn.viggle.ai/image-asset/93479d7a-77ac-417e-a2ae-3868b6502f2a.jpeg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=s0sZwnJCT-Un7IqhKN9Q4xMYm-Q=",
+            "smallURL": "https://cdn.viggle.ai/image-asset/93479d7a-77ac-417e-a2ae-3868b6502f2a.jpeg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=s0sZwnJCT-Un7IqhKN9Q4xMYm-Q=",
+            "miniURL": "https://cdn.viggle.ai/image-asset/93479d7a-77ac-417e-a2ae-3868b6502f2a.jpeg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=s0sZwnJCT-Un7IqhKN9Q4xMYm-Q=",
+            "width": 212,
+            "height": 238,
+            "isCollected": false
+        },
+        {
+            "id": "736da4a8-e6e4-4b7f-9a17-2a63243ca8c5",
+            "name": "1641744162429_.pic",
+            "url": "https://cdn.viggle.ai/image-asset/736da4a8-e6e4-4b7f-9a17-2a63243ca8c5.jpg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=4XrpJw3oK1zQJ4ZjM91kuIxZKkM=",
+            "largeURL": "https://cdn.viggle.ai/image-asset/736da4a8-e6e4-4b7f-9a17-2a63243ca8c5.jpg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=4XrpJw3oK1zQJ4ZjM91kuIxZKkM=",
+            "middleURL": "https://cdn.viggle.ai/preview/a0afd1fa-c4b8-4d5a-871d-8e6cbc3d7be9_mid.jpg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=qKC5hwn9pMxUKBsCUsHfnpdk-CA=",
+            "smallURL": "https://cdn.viggle.ai/preview/a0afd1fa-c4b8-4d5a-871d-8e6cbc3d7be9_s.jpg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=g0k7-evn4By-22ZCURush3J27DA=",
+            "miniURL": "https://cdn.viggle.ai/preview/a0afd1fa-c4b8-4d5a-871d-8e6cbc3d7be9_m.jpg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=MaEIYrehNpfzoepHD30Hyej1MBA=",
+            "width": 960,
+            "height": 1282,
+            "isCollected": false
+        },
+        {
+            "id": "c00949da-5176-401c-a020-acabc83aa427",
+            "name": "01c6cb303cfb4f58bac8f81144aefd1b~tplv-tb4s082cfz-aigc_resize",
+            "url": "https://cdn.viggle.ai/image-asset/c00949da-5176-401c-a020-acabc83aa427.jpeg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=mrPmAstXx8rCTT4FFYE_PVAgM_Q=",
+            "largeURL": "https://cdn.viggle.ai/image-asset/c00949da-5176-401c-a020-acabc83aa427.jpeg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=mrPmAstXx8rCTT4FFYE_PVAgM_Q=",
+            "middleURL": "https://cdn.viggle.ai/image-asset/c00949da-5176-401c-a020-acabc83aa427.jpeg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=mrPmAstXx8rCTT4FFYE_PVAgM_Q=",
+            "smallURL": "https://cdn.viggle.ai/preview/a73fb975-f355-4c9d-89b4-dd885747597f_s.jpeg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=-2ahn-W01Wioq55J2DxAQuuSYNM=",
+            "miniURL": "https://cdn.viggle.ai/preview/a73fb975-f355-4c9d-89b4-dd885747597f_m.jpeg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=s4ZKpXfpStV1kBfjTQidyZw2Rvk=",
+            "width": 1024,
+            "height": 1024,
+            "isCollected": false
+        },
+        {
+            "id": "01f9e01a-3b7f-44d9-8fd1-579b10b5634f",
+            "name": "生成古人关羽，正脸像，上半身，古代宋院体人物画风，工笔重彩技法，细腻的线条勾勒，平面化构图。人物表情端庄，衣纹流畅自然 ",
+            "url": "https://cdn.viggle.ai/image-asset/01f9e01a-3b7f-44d9-8fd1-579b10b5634f.jpeg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=PZbGabbLxIxkNuXfrafqj--WITA=",
+            "largeURL": "https://cdn.viggle.ai/image-asset/01f9e01a-3b7f-44d9-8fd1-579b10b5634f.jpeg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=PZbGabbLxIxkNuXfrafqj--WITA=",
+            "middleURL": "https://cdn.viggle.ai/image-asset/01f9e01a-3b7f-44d9-8fd1-579b10b5634f.jpeg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=PZbGabbLxIxkNuXfrafqj--WITA=",
+            "smallURL": "https://cdn.viggle.ai/preview/eda7393d-38b1-49ff-9e5f-3af2c53d79f3_s.jpeg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=CLmPrYrgldVpNDcm8_l-jnr9YQA=",
+            "miniURL": "https://cdn.viggle.ai/preview/eda7393d-38b1-49ff-9e5f-3af2c53d79f3_m.jpeg?Expires=1744310118\u0026KeyName=vigglecloudcdn2\u0026Signature=s758uQPWtqjXVc2SpahYRW8R5fg=",
+            "width": 1024,
+            "height": 1024,
+            "isCollected": false
+        }
+    ],
+    "total": 5
+}
