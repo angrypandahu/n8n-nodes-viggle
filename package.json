@@ -52,7 +52,9 @@
   },
   "dependencies": {
     "@types/node-fetch": "2",
+    "cloudscraper": "^4.6.0",
     "node-fetch": "2",
+    "puppeteer": "^24.6.1",
     "sqlite3": "^5.1.7"
   }
 }

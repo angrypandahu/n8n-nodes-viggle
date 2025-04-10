@@ -4,64 +4,75 @@ import type {
 	INodeType,
 	INodeTypeDescription,
 } from 'n8n-workflow';
-import fetch from 'node-fetch';
+import puppeteer from 'puppeteer';
 
 // 创建自定义的 fetch 函数
 const customFetch = async (url: string, options: { method: string; headers: Record<string, string> }) => {
-	// 确保请求头的顺序与 curl 命令一致
-	const cleanHeaders: Record<string, string> = {
-		'authorization': options.headers.authorization || '',
-		's': options.headers.s || '',
-		't': options.headers.t || '',
-		'u': options.headers.u || '',
-		'accept': 'application/json, text/plain, */*',
-		'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
-		'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
-		'sec-ch-ua-mobile': '?0',
-		'sec-ch-ua-platform': '"macOS"',
-		'sec-fetch-dest': 'empty',
-		'sec-fetch-mode': 'cors',
-		'sec-fetch-site': 'same-origin',
-		'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-		'origin': 'https://viggle.ai',
-		'referer': 'https://viggle.ai/',
-		'cookie': `s=${options.headers.s}; t=${options.headers.t}; u=${options.headers.u}`,
-		'cf-connecting-ip': '127.0.0.1',
-		'cf-ipcountry': 'CN',
-		'cf-ray': '92e06f03bf6aeb35-SJC',
-		'cf-visitor': '{"scheme":"https"}',
-		'x-forwarded-for': '127.0.0.1',
-		'x-forwarded-proto': 'https',
-		'x-real-ip': '127.0.0.1'
-	};
-
-	// 打印请求信息
-	console.log('=== Viggle API Request ===');
-	console.log('URL:', url);
-	console.log('Method:', options.method);
-	console.log('Headers:', cleanHeaders);
-	console.log('===================================');
-
-	// 执行请求
-	const response = await fetch(url, {
-		method: options.method,
-		headers: cleanHeaders,
+	// 启动浏览器
+	const browser = await puppeteer.launch({
+		headless: true,
+		args: ['--no-sandbox', '--disable-setuid-sandbox']
 	});
 
-	// 打印响应信息
-	console.log('=== Viggle API Response ===');
-	console.log('Status:', response.status);
-	console.log('Status Text:', response.statusText);
-	
-	// 将响应头转换为普通对象
-	const responseHeaders: Record<string, string> = {};
-	response.headers.forEach((value: string, key: string) => {
-		responseHeaders[key] = value;
-	});
-	console.log('Headers:', responseHeaders);
-	console.log('===================================');
+	try {
+		// 创建新页面
+		const page = await browser.newPage();
 
-	return response;
+		// 设置请求头
+		await page.setExtraHTTPHeaders({
+			'authorization': options.headers.authorization || '',
+			's': options.headers.s || '',
+			't': options.headers.t || '',
+			'u': options.headers.u || '',
+			'accept': 'application/json, text/plain, */*',
+			'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
+			'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+			'origin': 'https://viggle.ai',
+			'referer': 'https://viggle.ai/'
+		});
+
+		// 打印请求信息
+		console.log('=== Viggle API Request ===');
+		console.log('URL:', url);
+		console.log('Method:', options.method);
+		console.log('Headers:', options.headers);
+		console.log('===================================');
+
+		// 发送请求
+		const response = await page.goto(url, {
+			waitUntil: 'networkidle0',
+			timeout: 30000
+		});
+
+		if (!response) {
+			throw new Error('No response received');
+		}
+
+		// 获取响应内容
+		const responseText = await response.text();
+
+		// 打印响应信息
+		console.log('=== Viggle API Response ===');
+		console.log('Status:', response.status());
+		console.log('Status Text:', response.statusText());
+		console.log('Response:', responseText);
+		console.log('===================================');
+
+		// 返回一个模拟的 Response 对象
+		return {
+			status: response.status(),
+			statusText: response.statusText(),
+			headers: response.headers(),
+			json: async () => JSON.parse(responseText),
+			text: async () => responseText
+		} as unknown as Response;
+	} catch (error) {
+		console.error('Error:', error);
+		throw error;
+	} finally {
+		// 关闭浏览器
+		await browser.close();
+	}
 };
 
 export class Viggle implements INodeType {
@@ -216,10 +227,6 @@ export class Viggle implements INodeType {
 								'u': configuration.u,
 							},
 						});
-
-						if (!response.ok) {
-							throw new Error(`HTTP error! status: ${response.status}`);
-						}
 
 						const data = await response.json();
 						returnData.push({
