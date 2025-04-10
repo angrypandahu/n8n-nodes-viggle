@@ -1,0 +1,19 @@
+curl 'https://viggle.ai/api/asset/image?page=1&pageSize=48' \
+  -H 'accept: application/json, text/plain, */*' \
+  -H 'accept-language: zh-CN,zh;q=0.9,de;q=0.8,en;q=0.7' \
+  -H 'authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjAsImlkIjoiNWRiMzAxYjctNTAyYS00OTkxLThjMjMtNzgzNTg3M2ViYjQ0IiwidXNlcm5hbWUiOiIiLCJpc3N1ZXIiOiJ2aWdnbGUiLCJpc3N1ZWRfYXQiOiIyMDI1LTA0LTA5VDAxOjIxOjI3Ljk1NDM4MTU1MloiLCJleHBpcmVkX2F0IjoiMjAyNS0wNS0wOVQwMToyMToyNy45NTQzODE1NTJaIn0.NBAfZiQS-Rgr5vpJJFsqY7zw-Kn_j7ujPTl7pG9hrjrnmJHgzgIvebLJVGCZ1XvN5S-5RXfu9A654bqbExQXBvU4QMOlv8nMlP1dkgVl3JB58shwy4EAz5x3z7s1h2MtlHfU7Jxmgn0kEdEimcVFe5k6C_3PfbR8kmPSn--velvM0n3y2WKhBsjI_2T-XjFvMzAGj9tT0gcoEn9XpsxHFz5LbofNB5gznh3kh1EJ2_uuCK6H1cZdrcSbDQ68WjWhxJD6CafUM9FJkyIbrGDNHAX39eIqER-ZFy0614QsqEVBOPsI0ITengKhA17GJJtFSoY65n1DotWs7C__3X62NQ' \
+  -b '_ga=GA1.1.753993914.1743404434; cf_clearance=sw4jLn50TwKbI7Q0Ka0DRpzd6J2TcfeKh8et2kLNceQ-1744165604-1.2.1.1-xn19Oz7hH1SNon4n0drprPlR89Pur.q18ZtXpja_OSptKdTYrI3uhRjewhDzB0I7sf38d_sIBRFVqk.74mQvWnquBAefm8M_QCF4Qwu3bFdcqkCRkV8aHS8cMrUWrviLatzRQB7lUFSFswUdgVnRZdFN781oDdGkwjwm5oa0zjMFnKYnNWCDoKfmGHmVt6fCBBXWjrHuP6wieueizgVPnG.cLX5_gH2vEstKAluNfjmDP65kZ36N77nOCYlYU9cqvrttGf1lV6aHb8qpAOVjs8SR.F6MITxs5sJv0qq0FeNM92o8RhsWlibNhp12qEI9vmPu6Mx6Ret.hVgUtN8sZXKVN1s2Rsp65dOO.BaH5l4; _ga_0SLPB0CK4W=GS1.1.1744266706.9.0.1744266706.0.0.0' \
+  -H 'priority: u=1, i' \
+  -H 'referer: https://viggle.ai/create-mix' \
+  -H 's: 1e644c232b147203a35855245131c419' \
+  -H 'sec-ch-ua: "Chromium";v="134", "Not:A-Brand";v="24", "Google Chrome";v="134"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: same-origin' \
+  -H 't: 1744266717312' \
+  -H 'u: c910c40d-c3ea-4e51-8f19-0c85d31a066c' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36'
+
+  
