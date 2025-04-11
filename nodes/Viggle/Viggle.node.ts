@@ -100,6 +100,101 @@ const customFetch = async (
 	}
 };
 
+const customPost = async (
+	url: string,
+	options: {
+		method: string;
+		headers: {
+			accept: string;
+			"accept-language": string;
+			authorization: any;
+			"content-type": string;
+			origin: string;
+			referer: string;
+			"sec-ch-ua": string;
+			"sec-ch-ua-mobile": string;
+			"sec-ch-ua-platform": string;
+			"sec-fetch-dest": string;
+			"sec-fetch-mode": string;
+			"sec-fetch-site": string;
+			s: any;
+			t: any;
+			u: any;
+			"user-agent": string
+		};
+		body: {}
+	},
+) => {
+	// 启动浏览器
+	const browser = await puppeteer.launch({
+		headless: true,
+		args: ['--no-sandbox', '--disable-setuid-sandbox'],
+	});
+
+	try {
+		// 创建新页面
+		const page = await browser.newPage();
+
+		// 设置请求头
+		await page.setExtraHTTPHeaders({
+			authorization: options.headers.authorization || '',
+			s: options.headers.s || '',
+			t: options.headers.t || '',
+			u: options.headers.u || '',
+			accept: 'application/json, text/plain, */*',
+			'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
+			'user-agent':
+				'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+			origin: 'https://viggle.ai',
+			referer: 'https://viggle.ai/',
+		});
+
+		// 打印请求信息
+		console.log('=== Viggle API Request ===');
+		console.log('URL:', url);
+		console.log('Method:', options.method);
+		console.log('Headers:', options.headers);
+		console.log('===================================');
+
+		// 发送请求
+		const response = await page.goto(url, {
+			waitUntil: 'networkidle0',
+			timeout: 30000,
+		});
+
+		if (!response) {
+			throw new Error('No response received');
+		}
+
+		// 获取响应内容
+		const responseText = await response.text();
+
+		// 打印响应信息
+		console.log('=== Viggle API Response ===');
+		console.log('Status:', response.status());
+		console.log('Status Text:', response.statusText());
+		console.log('Response:', responseText);
+		console.log('===================================');
+
+		// 返回一个模拟的 Response 对象
+		return {
+			status: response.status(),
+			statusText: response.statusText(),
+			headers: response.headers(),
+			json: async () => JSON.parse(responseText),
+			text: async () => responseText,
+		} as unknown as Response;
+	} catch (error) {
+		console.error('Error:', error);
+		throw error;
+	} finally {
+		// 关闭浏览器
+		await browser.close();
+	}
+};
+
+
+
 export class Viggle implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Viggle',
@@ -288,7 +383,7 @@ export class Viggle implements INodeType {
 					};
 
 					try {
-						const response = await customFetch('https://viggle.ai/api/asset/image', {
+						const response = await customPost('https://viggle.ai/api/asset/image', {
 							method: 'POST',
 							headers: headers,
 							body: formDataParts
