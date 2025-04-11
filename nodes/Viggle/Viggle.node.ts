@@ -7,11 +7,35 @@ import type {
 import puppeteer from 'puppeteer';
 
 // 创建自定义的 fetch 函数
-const customFetch = async (url: string, options: { method: string; headers: Record<string, string> }) => {
+const customFetch = async (
+	url: string,
+	options: {
+		method: string;
+		headers: {
+			accept: string;
+			"accept-language": string;
+			authorization: any;
+			"content-type": string;
+			origin: string;
+			referer: string;
+			"sec-ch-ua": string;
+			"sec-ch-ua-mobile": string;
+			"sec-ch-ua-platform": string;
+			"sec-fetch-dest": string;
+			"sec-fetch-mode": string;
+			"sec-fetch-site": string;
+			s: any;
+			t: any;
+			u: any;
+			"user-agent": string
+		};
+		body: {}
+	},
+) => {
 	// 启动浏览器
 	const browser = await puppeteer.launch({
 		headless: true,
-		args: ['--no-sandbox', '--disable-setuid-sandbox']
+		args: ['--no-sandbox', '--disable-setuid-sandbox'],
 	});
 
 	try {
@@ -20,15 +44,16 @@ const customFetch = async (url: string, options: { method: string; headers: Reco
 
 		// 设置请求头
 		await page.setExtraHTTPHeaders({
-			'authorization': options.headers.authorization || '',
-			's': options.headers.s || '',
-			't': options.headers.t || '',
-			'u': options.headers.u || '',
-			'accept': 'application/json, text/plain, */*',
+			authorization: options.headers.authorization || '',
+			s: options.headers.s || '',
+			t: options.headers.t || '',
+			u: options.headers.u || '',
+			accept: 'application/json, text/plain, */*',
 			'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
-			'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-			'origin': 'https://viggle.ai',
-			'referer': 'https://viggle.ai/'
+			'user-agent':
+				'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+			origin: 'https://viggle.ai',
+			referer: 'https://viggle.ai/',
 		});
 
 		// 打印请求信息
@@ -41,7 +66,7 @@ const customFetch = async (url: string, options: { method: string; headers: Reco
 		// 发送请求
 		const response = await page.goto(url, {
 			waitUntil: 'networkidle0',
-			timeout: 30000
+			timeout: 30000,
 		});
 
 		if (!response) {
@@ -64,7 +89,7 @@ const customFetch = async (url: string, options: { method: string; headers: Reco
 			statusText: response.statusText(),
 			headers: response.headers(),
 			json: async () => JSON.parse(responseText),
-			text: async () => responseText
+			text: async () => responseText,
 		} as unknown as Response;
 	} catch (error) {
 		console.error('Error:', error);
@@ -97,30 +122,26 @@ export class Viggle implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'Generate Animation',
-						value: 'generateAnimation',
-						description: 'Generate animation from text or image',
-						action: 'Generate animation from text or image',
-					},
-					{
 						name: 'Get Image List',
 						value: 'getImageList',
 						description: 'Get list of images from Viggle account',
-						action: 'Get list of images from Viggle account',
+						action: 'Get list of images from viggle account',
+					},
+					{
+						name: 'Upload Image to Viggle',
+						value: 'uploadImageToViggle',
+						description: 'Upload Image to Viggle assert',
+						action: 'Upload image to viggle assert',
 					},
 				],
-				default: 'generateAnimation',
+				default: 'getImageList',
 			},
 			{
 				displayName: 'Configuration',
 				name: 'configuration',
 				type: 'json',
-				displayOptions: {
-					show: {
-						operation: ['getImageList'],
-					},
-				},
-				default: '{\n  "authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjAsImlkIjoiNWRiMzAxYjctNTAyYS00OTkxLThjMjMtNzgzNTg3M2ViYjQ0IiwidXNlcm5hbWUiOiIiLCJpc3N1ZXIiOiJ2aWdnbGUiLCJpc3N1ZWRfYXQiOiIyMDI1LTA0LTA5VDAxOjIxOjI3Ljk1NDM4MTU1MloiLCJleHBpcmVkX2F0IjoiMjAyNS0wNS0wOVQwMToyMToyNy45NTQzODE1NTJaIn0.NBAfZiQS-Rgr5vpJJFsqY7zw-Kn_j7ujPTl7pG9hrjrnmJHgzgIvebLJVGCZ1XvN5S-5RXfu9A654bqbExQXBvU4QMOlv8nMlP1dkgVl3JB58shwy4EAz5x3z7s1h2MtlHfU7Jxmgn0kEdEimcVFe5k6C_3PfbR8kmPSn--velvM0n3y2WKhBsjI_2T-XjFvMzAGj9tT0gcoEn9XpsxHFz5LbofNB5gznh3kh1EJ2_uuCK6H1cZdrcSbDQ68WjWhxJD6CafUM9FJkyIbrGDNHAX39eIqER-ZFy0614QsqEVBOPsI0ITengKhA17GJJtFSoY65n1DotWs7C__3X62NQ",\n  "s": "1e644c232b147203a35855245131c419",\n  "u": "c910c40d-c3ea-4e51-8f19-0c85d31a066c"\n ,"t": "1744266717312"\n}',
+				default:
+					'{\n  "authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjAsImlkIjoiNWRiMzAxYjctNTAyYS00OTkxLThjMjMtNzgzNTg3M2ViYjQ0IiwidXNlcm5hbWUiOiIiLCJpc3N1ZXIiOiJ2aWdnbGUiLCJpc3N1ZWRfYXQiOiIyMDI1LTA0LTA5VDAxOjIxOjI3Ljk1NDM4MTU1MloiLCJleHBpcmVkX2F0IjoiMjAyNS0wNS0wOVQwMToyMToyNy45NTQzODE1NTJaIn0.NBAfZiQS-Rgr5vpJJFsqY7zw-Kn_j7ujPTl7pG9hrjrnmJHgzgIvebLJVGCZ1XvN5S-5RXfu9A654bqbExQXBvU4QMOlv8nMlP1dkgVl3JB58shwy4EAz5x3z7s1h2MtlHfU7Jxmgn0kEdEimcVFe5k6C_3PfbR8kmPSn--velvM0n3y2WKhBsjI_2T-XjFvMzAGj9tT0gcoEn9XpsxHFz5LbofNB5gznh3kh1EJ2_uuCK6H1cZdrcSbDQ68WjWhxJD6CafUM9FJkyIbrGDNHAX39eIqER-ZFy0614QsqEVBOPsI0ITengKhA17GJJtFSoY65n1DotWs7C__3X62NQ",\n  "s": "1e644c232b147203a35855245131c419",\n  "u": "c910c40d-c3ea-4e51-8f19-0c85d31a066c"\n ,"t": "1744266717312"\n}',
 				description: 'Viggle API configuration in JSON format',
 				required: true,
 			},
@@ -149,53 +170,17 @@ export class Viggle implements INodeType {
 				description: 'Number of items per page',
 			},
 			{
-				displayName: 'Input Type',
-				name: 'inputType',
-				type: 'options',
-				displayOptions: {
-					show: {
-						operation: ['generateAnimation'],
-					},
-				},
-				options: [
-					{
-						name: 'Text',
-						value: 'text',
-					},
-					{
-						name: 'Image',
-						value: 'image',
-					},
-				],
-				default: 'text',
-			},
-			{
-				displayName: 'Text Input',
-				name: 'textInput',
+				displayName: 'Binary Property',
+				name: 'binaryPropertyName',
 				type: 'string',
 				displayOptions: {
 					show: {
-						operation: ['generateAnimation'],
-						inputType: ['text'],
+						operation: ['uploadImageToViggle'],
 					},
 				},
-				default: '',
-				description: 'Text description for animation generation',
+				default: 'data',
 				required: true,
-			},
-			{
-				displayName: 'Image Input',
-				name: 'imageInput',
-				type: 'string',
-				displayOptions: {
-					show: {
-						operation: ['generateAnimation'],
-						inputType: ['image'],
-					},
-				},
-				default: '',
-				description: 'Base64 encoded image for animation generation',
-				required: true,
+				description: 'Name of the binary property which contains the file data to be uploaded',
 			},
 		],
 	};
@@ -211,21 +196,34 @@ export class Viggle implements INodeType {
 
 				const operation = this.getNodeParameter('operation', i) as string;
 				console.log(`Operation: ${operation}`);
+				const configuration = JSON.parse(this.getNodeParameter('configuration', i) as string);
 
 				if (operation === 'getImageList') {
 					const page = this.getNodeParameter('page', i) as number;
 					const pageSize = this.getNodeParameter('pageSize', i) as number;
-					const configuration = JSON.parse(this.getNodeParameter('configuration', i) as string);
 
 					try {
 						const response = await customFetch(`https://viggle.ai/api/asset/image?page=${page}&pageSize=${pageSize}`, {
 							method: 'GET',
 							headers: {
+								'accept': 'application/json, text/plain, */*',
+								'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
 								'authorization': configuration.authorization,
+								'content-type': 'application/json',
+								'origin': 'https://viggle.ai',
+								'referer': 'https://viggle.ai/',
+								'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "Google Chrome";v="134"',
+								'sec-ch-ua-mobile': '?0',
+								'sec-ch-ua-platform': '"macOS"',
+								'sec-fetch-dest': 'empty',
+								'sec-fetch-mode': 'cors',
+								'sec-fetch-site': 'same-origin',
 								's': configuration.s,
 								't': configuration.t,
 								'u': configuration.u,
+								'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36'
 							},
+							body: {}
 						});
 
 						const data = await response.json();
@@ -236,42 +234,69 @@ export class Viggle implements INodeType {
 						console.error('API call failed:', apiError);
 						throw new Error(`Viggle API call failed: ${apiError.message}`);
 					}
-				} else if (operation === 'generateAnimation') {
-					const inputType = this.getNodeParameter('inputType', i) as string;
-					console.log(`Input Type: ${inputType}`);
+				} else if (operation === 'uploadImageToViggle') {
+					const binaryPropertyName = this.getNodeParameter('binaryPropertyName', i) as string;
+					console.log('binaryPropertyName===', binaryPropertyName);
 
-					let input;
-					if (inputType === 'text') {
-						input = this.getNodeParameter('textInput', i) as string;
-						if (!input.trim()) {
-							throw new Error('Text input cannot be empty');
-						}
-						console.log('Text input received:', input);
-					} else {
-						input = this.getNodeParameter('imageInput', i) as string;
-						if (!input.trim()) {
-							throw new Error('Image input cannot be empty');
-						}
-						if (!input.startsWith('data:image')) {
-							throw new Error('Invalid image format. Must be base64 encoded image data');
-						}
-						console.log('Image input received (length):', input.length);
+					// 获取二进制数据
+					const item = items[i];
+					console.log('item===', JSON.stringify(item, null, 2));
+					if (!item) {
+						throw new Error('Item is undefined');
+					}
+					const binaryData = item.binary?.data
+
+					if (!binaryData) {
+						throw new Error(`No binary data found for property "${binaryPropertyName}"`);
 					}
 
-					try {
-						// TODO: Implement actual Viggle API call here
-						console.log('Making API call to Viggle...');
-						const result = {
-							status: 'success',
-							message: 'Animation generation started',
-							input_type: inputType,
-							input_length: input.length,
-							timestamp: new Date().toISOString(),
-						};
+					// 生成随机边界
+					const boundary = '----WebKitFormBoundary' + Math.random().toString(36).substring(2);
 
-						console.log('API call successful:', result);
+					// 将 base64 转换为二进制
+					const fileBuffer = Buffer.from(binaryData.data, 'base64');
+
+					// 构建 multipart/form-data 请求体
+					const formDataParts = [
+						`--${boundary}`,
+						`Content-Disposition: form-data; name="file"; filename="${binaryData.fileName}"`,
+						`Content-Type: ${binaryData.mimeType}`,
+						'',
+						fileBuffer,
+						`--${boundary}--`,
+						''
+					].join('\r\n');
+
+					// 设置请求头
+					const headers = {
+						'accept': 'application/json, text/plain, */*',
+						'accept-language': 'zh-CN,zh;q=0.9,de;q=0.8,en;q=0.7',
+						'authorization': configuration.authorization,
+						'content-type': `multipart/form-data; boundary=${boundary}`,
+						'origin': 'https://viggle.ai',
+						'referer': 'https://viggle.ai/create-mix',
+						'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "Google Chrome";v="134"',
+						'sec-ch-ua-mobile': '?0',
+						'sec-ch-ua-platform': '"macOS"',
+						'sec-fetch-dest': 'empty',
+						'sec-fetch-mode': 'cors',
+						'sec-fetch-site': 'same-origin',
+						's': configuration.s,
+						't': configuration.t,
+						'u': configuration.u,
+						'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36'
+					};
+
+					try {
+						const response = await customFetch('https://viggle.ai/api/asset/image', {
+							method: 'POST',
+							headers: headers,
+							body: formDataParts
+						});
+
+						const data = await response.json();
 						returnData.push({
-							json: result,
+							json: data,
 						});
 					} catch (apiError) {
 						console.error('API call failed:', apiError);
@@ -279,13 +304,10 @@ export class Viggle implements INodeType {
 					}
 				}
 			} catch (error) {
-				console.error(`Error processing item ${i + 1}:`, error);
 				if (this.continueOnFail()) {
 					returnData.push({
 						json: {
 							error: error.message,
-							item_index: i,
-							timestamp: new Date().toISOString(),
 						},
 					});
 					continue;
@@ -300,4 +322,6 @@ export class Viggle implements INodeType {
 }
 
 // 添加默认导出
-export default { nodeClass: Viggle }; 
+export default {
+	nodeClass: Viggle
+};
